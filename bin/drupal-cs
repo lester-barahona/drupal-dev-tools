@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Runs phpcs/phpcbf against whichever Drupal custom code directories exist.
+ * Pass --fix to run phpcbf (auto-fix) instead of phpcs (check only).
+ */
+
+$fix  = in_array('--fix', $argv, true);
+$tool = $fix ? 'phpcbf' : 'phpcs';
+
+$root       = getcwd();
+$candidates = ['web/modules/custom', 'web/themes/custom', 'web/profiles/custom'];
+$paths      = array_filter($candidates, fn($p) => is_dir($root . DIRECTORY_SEPARATOR . $p));
+
+if (empty($paths)) {
+    fwrite(STDERR, "drupal-dev-tools: No custom directories found to scan.\n");
+    fwrite(STDERR, "  Expected one or more of: " . implode(', ', $candidates) . "\n");
+    exit(0);
+}
+
+$standard = dirname(__DIR__) . '/config/phpcs.xml';
+$pathArgs = implode(' ', array_map('escapeshellarg', $paths));
+$cmd      = sprintf('vendor/bin/%s --standard=%s %s', $tool, escapeshellarg($standard), $pathArgs);
+
+passthru($cmd, $code);
+exit($code);

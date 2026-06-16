@@ -221,8 +221,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
         $pkg = self::getPackageRelPath($projectRoot);
 
         $scripts = [
-            'cs'      => "phpcs --standard={$pkg}/config/phpcs.xml",
-            'cs-fix'  => "phpcbf --standard={$pkg}/config/phpcs.xml",
+            'cs'      => "@php {$pkg}/bin/drupal-cs",
+            'cs-fix'  => "@php {$pkg}/bin/drupal-cs --fix",
             'analyse' => "phpstan analyse --configuration={$pkg}/config/phpstan.neon",
         ];
 
