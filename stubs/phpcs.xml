@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="Project">
+  <!--
+    Inherits Drupal coding standards from drupal-dev-tools.
+    Add project-specific overrides below.
+
+    Examples:
+      Disable a rule:
+        <rule ref="Drupal.Commenting.FunctionComment"><severity>0</severity></rule>
+
+      Change a rule to warning instead of error:
+        <rule ref="Drupal.Commenting.InlineComment"><type>warning</type></rule>
+
+      Add an extra exclusion pattern:
+        <exclude-pattern>web/modules/custom/legacy_module/*</exclude-pattern>
+  -->
+  <rule ref="vendor/lester-barahona/drupal-dev-tools/config/phpcs.xml"/>
+
+</ruleset>

@@ -1,0 +1,16 @@
+grumphp:
+  hooks_dir: ~
+  hooks_preset: local
+
+  tasks:
+    phpcs:
+      show_sniffs_in_use: false
+      metadata:
+        priority: 10
+        run_on: [pre-commit]
+
+    phpstan:
+      use_grumphp_paths: false
+      metadata:
+        priority: 0
+        run_on: [pre-push]

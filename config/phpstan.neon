@@ -1,0 +1,21 @@
+parameters:
+  level: 2
+
+  paths:
+    - web/modules/custom
+    - web/themes/custom
+    - web/profiles/custom
+
+  excludePaths:
+    analyse:
+      - '*/node_modules/*'
+      - '*/vendor/*'
+      - '*/dist/*'
+      - '*/bower_components/*'
+
+  drupal:
+    drupal_root: web
+
+  # Ignore errors from Drupal's dynamic nature that are not actionable
+  ignoreErrors:
+    - '#Unsafe usage of new static#'

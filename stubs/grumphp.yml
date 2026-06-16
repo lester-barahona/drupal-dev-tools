@@ -1,0 +1,22 @@
+imports:
+  - { resource: .drupal-dev-tools/grumphp.yml }
+
+# Project overrides. Uncomment and adjust as needed.
+#
+# grumphp:
+#   tasks:
+#     phpcs:
+#       # Use a local phpcs.xml published via: composer drupal-dev-tools:publish phpcs
+#       standard: phpcs.xml
+#       # Move PHPCS to pre-push instead of pre-commit.
+#       # metadata:
+#       #   run_on: [pre-push]
+#
+#     phpstan:
+#       # Use a local phpstan.neon published via: composer drupal-dev-tools:publish phpstan
+#       configuration: phpstan.neon
+#       # Raise the analysis level just for git hooks.
+#       # ignore_patterns: ['/tests/']
+#
+#   # Disable a hook entirely.
+#   hooks_preset: local

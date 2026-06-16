@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="DrupalDevTools">
+  <description>Drupal coding standards for custom code only.</description>
+
+  <!-- Standards -->
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
+
+  <!-- Custom code paths -->
+  <file>web/modules/custom</file>
+  <file>web/themes/custom</file>
+  <file>web/profiles/custom</file>
+
+  <!-- File extensions to check -->
+  <arg name="extensions" value="php,module,inc,install,test,profile,theme,info"/>
+
+  <!-- Never check core, contrib, or generated code -->
+  <exclude-pattern>*/core/*</exclude-pattern>
+  <exclude-pattern>*/contrib/*</exclude-pattern>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
+  <exclude-pattern>*/dist/*</exclude-pattern>
+  <exclude-pattern>*/bower_components/*</exclude-pattern>
+  <exclude-pattern>*_test.php</exclude-pattern>
+
+  <!-- Output formatting -->
+  <arg value="sp"/>
+  <arg name="colors"/>
+  <arg name="parallel" value="8"/>
+</ruleset>

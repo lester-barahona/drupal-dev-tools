@@ -1,0 +1,18 @@
+includes:
+  - vendor/lester-barahona/drupal-dev-tools/config/phpstan.neon
+
+parameters:
+  # Override the analysis level (0 = loosest, 9 = strictest). Default: 2.
+  # level: 4
+
+  # Override if your Drupal root is not "web" (e.g. "docroot").
+  # drupal:
+  #   drupal_root: docroot
+
+  # Add extra paths to analyse.
+  # paths:
+  #   - web/modules/custom/my_module
+
+  # Ignore specific errors for this project.
+  # ignoreErrors:
+  #   - '#Call to an undefined method#'
