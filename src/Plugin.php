@@ -61,6 +61,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
         $this->ensureGitignore($io, $projectRoot);
         $this->ensureGrumphpConfigPath($io, $projectRoot);
         $this->ensureAllowPlugins($io, $projectRoot);
+        $this->ensureScripts($io, $projectRoot);
 
         $io->write('');
         $io->write('<info>drupal-dev-tools:</info> Done. Available commands:');
@@ -190,6 +191,48 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable
                 $composerJson['config']['allow-plugins'][$plugin] = true;
                 $modified = true;
                 $io->write("  <info>updated</info>  allow-plugins: {$plugin}");
+            }
+        }
+
+        if ($modified) {
+            file_put_contents(
+                $composerJsonPath,
+                json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n"
+            );
+        }
+    }
+
+    private function ensureScripts(IOInterface $io, string $projectRoot): void
+    {
+        $composerJsonPath = $projectRoot . '/composer.json';
+
+        if (!file_exists($composerJsonPath)) {
+            return;
+        }
+
+        $contents     = file_get_contents($composerJsonPath);
+        $composerJson = json_decode($contents, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $io->writeError('  <warning>warning</warning>  Could not parse project composer.json');
+            return;
+        }
+
+        $pkg = self::getPackageRelPath($projectRoot);
+
+        $scripts = [
+            'cs'      => "phpcs --standard={$pkg}/config/phpcs.xml",
+            'cs-fix'  => "phpcbf --standard={$pkg}/config/phpcs.xml",
+            'analyse' => "phpstan analyse --configuration={$pkg}/config/phpstan.neon",
+        ];
+
+        $modified = false;
+
+        foreach ($scripts as $name => $command) {
+            if (!isset($composerJson['scripts'][$name])) {
+                $composerJson['scripts'][$name] = $command;
+                $modified                        = true;
+                $io->write("  <info>updated</info>  scripts.{$name}");
             }
         }
 
